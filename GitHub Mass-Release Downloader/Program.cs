@@ -4,13 +4,17 @@ using Newtonsoft.Json;
 
 Console.WriteLine("GitHub Release Downloader");
 
+string owner = args[0];
+string repo = args[1];
+Console.WriteLine("Using {0}/{1}", owner, repo);
+Thread.Sleep(500);
 int page = 1;
 List<Root> responses = new List<Root>();
 try
 {
     while(true)
     {
-        string response = Network.DownloadString("https://api.github.com/repos/Atmosphere-NX/atmosphere/releases?per_page=100&page=" + page++);
+        string response = Network.DownloadString("https://api.github.com/repos/" + owner + "/" + repo + "/releases?per_page=100&page=" + page++);
         var githubResponse = JsonConvert.DeserializeObject<List<Root>>(response);
         foreach (var item in githubResponse)
             responses.Add(item);

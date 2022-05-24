@@ -1,4 +1,4 @@
-# GitHub-Mass-Release-Downloader
+# GitHub Mass-Release Downloader
 Downloads every release from a project.
 
 ## Usage

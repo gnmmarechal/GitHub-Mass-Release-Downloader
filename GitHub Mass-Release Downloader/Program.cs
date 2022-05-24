@@ -35,10 +35,22 @@ else
 }
 
 Console.WriteLine();
+string currentDir = Directory.GetCurrentDirectory();
+
 if (!Directory.Exists("downloads"))
     Directory.CreateDirectory("downloads");
 Directory.SetCurrentDirectory("downloads");
 
+if (!Directory.Exists(owner))
+    Directory.CreateDirectory(owner);
+
+Directory.SetCurrentDirectory(owner);
+
+if (Directory.Exists(repo))
+    Directory.Delete(repo, true);
+
+Directory.CreateDirectory(repo);
+Directory.SetCurrentDirectory(repo);
 
 foreach (var item in responses)
 {
@@ -51,3 +63,5 @@ foreach (var item in responses)
         Console.WriteLine(asset.browser_download_url);
     }
 }
+
+Directory.SetCurrentDirectory(currentDir);

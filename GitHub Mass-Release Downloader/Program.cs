@@ -53,16 +53,19 @@ if (Directory.Exists(repo))
 Directory.CreateDirectory(repo);
 Directory.SetCurrentDirectory(repo);
 
-foreach (var item in responses)
+Parallel.ForEach(responses, new ParallelOptions { MaxDegreeOfParallelism = 8}, (item) =>
 {
-    Console.WriteLine(item.tag_name);
+
+    string prefix = $"[{item.tag_name}]: ";
     Directory.CreateDirectory(item.tag_name);
+    //Console.WriteLine(item.tag_name);
+    
     foreach (var asset in item.assets)
     {
         Network.DownloadFile(asset.browser_download_url, item.tag_name + Path.DirectorySeparatorChar + asset.name);
 
-        Console.WriteLine(asset.browser_download_url);
+        Console.WriteLine($"{prefix}{asset.browser_download_url}");
     }
-}
+});
 
 Directory.SetCurrentDirectory(currentDir);

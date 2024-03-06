@@ -2,6 +2,7 @@
 using GitHub_Mass_Release_Downloader;
 using Newtonsoft.Json;
 
+bool enableDebug = false;
 Console.WriteLine("GitHub Release Downloader");
 
 string owner = args[0];
@@ -24,11 +25,11 @@ catch (Exception ex)
 {
     Console.WriteLine("Pages: " + (page-1));
 }
-if (responses.Count > 0)
+if (responses.Count > 0 && enableDebug)
 {
     File.WriteAllText("test.txt", JsonConvert.SerializeObject(responses));
 }
-else
+else if (enableDebug)
 {
     Console.WriteLine("Loading from file...");
     responses = JsonConvert.DeserializeObject<List<Root>>(File.ReadAllText("test.txt"));
